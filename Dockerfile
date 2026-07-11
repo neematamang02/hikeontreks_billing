@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 COPY resources ./resources
-COPY webpack.mix.js ./
+COPY webpack.mix.js tailwind.config.js ./
 RUN npm run production
 
 # ---- Stage 2: PHP application image ----
@@ -33,7 +33,6 @@ COPY . .
 # Bring in compiled frontend assets from stage 1
 COPY --from=frontend /app/public/js ./public/js
 COPY --from=frontend /app/public/css ./public/css
-COPY --from=frontend /app/public/mix-manifest.json ./public/mix-manifest.json
 
 RUN composer dump-autoload --optimize --no-dev \
     && mkdir -p storage/framework/{sessions,views,cache} storage/logs bootstrap/cache \
