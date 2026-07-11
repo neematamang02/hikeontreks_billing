@@ -8,7 +8,7 @@ COPY webpack.mix.js tailwind.config.js ./
 RUN npm run production
 
 # ---- Stage 2: PHP application image ----
-FROM php:8.1-apache
+FROM php:8.2-apache
 
 # System packages + PHP extensions Laravel needs
 RUN apt-get update && apt-get install -y \
