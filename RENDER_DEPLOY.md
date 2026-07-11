@@ -1,5 +1,23 @@
 # Deploying HikeOnTreks Billing to Render (Docker + your existing cPanel MySQL)
 
+## First build failed? Here's what I already fixed
+
+If you pulled this zip after a failed Render build complaining about
+`Can't resolve 'tailwindcss/base'` or `Can't resolve 'alpinejs'` — that was a
+real bug in the repo (Tailwind/Alpine were used in the Blade views and
+`resources/css/app.css`/`resources/js/app.js`, but never added to
+`package.json`, and `tailwind.config.js` didn't exist at all). I added:
+- `tailwindcss`, `alpinejs`, `postcss-import`, `autoprefixer` to `package.json`
+- `tailwind.config.js`
+- updated `webpack.mix.js` to run the Tailwind/PostCSS pipeline
+- pinned `webpack` to `5.76.0` via an `overrides` entry — newer webpack 5.9x+
+  removed an internal module Laravel Mix 6 depends on internally, causing a
+  second unrelated build failure (`Cannot find module 'webpack/lib/SizeFormatHelpers'`)
+
+I rebuilt the frontend locally (exact same files/steps the Dockerfile uses) and
+confirmed it compiles cleanly with real Tailwind output before packaging this zip.
+
+
 Render has no native PHP runtime, so this app deploys as a **Docker web service**.
 Your database stays exactly where it is (cPanel/phpMyAdmin) — Render connects to it
 remotely over the internet.
