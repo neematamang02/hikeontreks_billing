@@ -2,7 +2,7 @@
 FROM node:18-alpine AS frontend
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm install
 COPY resources ./resources
 COPY webpack.mix.js ./
 RUN npm run production
