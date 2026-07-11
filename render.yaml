@@ -1,0 +1,43 @@
+services:
+  - type: web
+    name: hikeontreks-billing
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter
+    region: oregon
+    healthCheckPath: /login
+    envVars:
+      - key: APP_NAME
+        value: "HikeOnTreks|Billing"
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_URL
+        sync: false          # set to your final onrender.com URL (or custom domain) after first deploy
+      - key: APP_KEY
+        sync: false          # generate locally with `php artisan key:generate --show` and paste the base64:... value here
+      - key: LOG_CHANNEL
+        value: stack
+      - key: LOG_LEVEL
+        value: error
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        sync: false          # your cPanel host's MySQL hostname/IP
+      - key: DB_PORT
+        value: "3306"
+      - key: DB_DATABASE
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: SESSION_DRIVER
+        value: file
+      - key: CACHE_DRIVER
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: RUN_MIGRATIONS
+        value: "true"
