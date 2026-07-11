@@ -26,6 +26,11 @@ class Ticket extends Model
         'remarks',
     ];
 
+    protected $casts = [
+        'ticket_price' => 'decimal:2',
+        'booked_seat' => 'integer',
+    ];
+
     public function ticketPayments()
     {
         return $this->hasMany(TicketPayment::class, 'ticket_id');

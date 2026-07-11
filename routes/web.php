@@ -13,12 +13,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/storage-link', function () {
-    Artisan::call('cache:clear');
-    Artisan::call('view:clear');
-    Artisan::call('config:clear');
-});
-
 Route::get('/', 'App\Http\Controllers\TicketController@index')->middleware(['auth']);
 
 Route::get('/dashboard', function () {
